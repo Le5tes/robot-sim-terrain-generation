@@ -5,7 +5,6 @@
       <![CDATA[The physics tag specifies the type and properties of the dynamics engine.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='physics'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

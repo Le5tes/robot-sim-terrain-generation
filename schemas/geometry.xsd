@@ -5,7 +5,6 @@
       <![CDATA[The shape of the visual or collision object.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:include schemaLocation='./box_shape.xsd'/>
   <xsd:include schemaLocation='./cylinder_shape.xsd'/>
   <xsd:include schemaLocation='./heightmap_shape.xsd'/>

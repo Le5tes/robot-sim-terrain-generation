@@ -5,7 +5,6 @@
       <![CDATA[The inertial properties of the link.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='inertial'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

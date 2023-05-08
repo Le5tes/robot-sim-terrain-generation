@@ -5,7 +5,6 @@
       <![CDATA[These elements are specific to a Magnetometer sensor.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='magnetometer'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

@@ -5,7 +5,6 @@
       <![CDATA[Extrude a set of boxes from a grayscale image.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='image'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

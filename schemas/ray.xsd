@@ -5,7 +5,6 @@
       <![CDATA[These elements are specific to the ray (laser) sensor.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='ray'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

@@ -8,10 +8,6 @@
   ]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
-  <xsd:include schemaLocation='./box_shape.xsd'/>
-  <xsd:include schemaLocation='./cylinder_shape.xsd'/>
-  <xsd:include schemaLocation='./model.xsd'/>
   <xsd:element name='population'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

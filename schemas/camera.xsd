@@ -5,7 +5,6 @@
       <![CDATA[These elements are specific to camera sensors.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='camera'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

@@ -5,7 +5,6 @@
       <![CDATA[These elements are specific to the GPS sensor.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='gps'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

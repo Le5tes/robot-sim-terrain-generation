@@ -5,7 +5,6 @@
       <![CDATA[Specifies the look of the environment.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='scene'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

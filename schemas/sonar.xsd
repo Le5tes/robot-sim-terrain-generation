@@ -5,7 +5,6 @@
       <![CDATA[These elements are specific to the sonar sensor.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='sonar'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

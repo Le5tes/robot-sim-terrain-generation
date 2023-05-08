@@ -5,15 +5,12 @@
       <![CDATA[The world element encapsulates an entire world description including: models, scene, physics, joints, and plugins]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:include schemaLocation='./gui.xsd'/>
   <xsd:include schemaLocation='./physics.xsd'/>
   <xsd:include schemaLocation='./scene.xsd'/>
   <xsd:include schemaLocation='./light.xsd'/>
   <xsd:include schemaLocation='./model.xsd'/>
   <xsd:include schemaLocation='./actor.xsd'/>
-  <xsd:include schemaLocation='./plugin.xsd'/>
-  <xsd:include schemaLocation='./joint.xsd'/>
   <xsd:include schemaLocation='./road.xsd'/>
   <xsd:include schemaLocation='./spherical_coordinates.xsd'/>
   <xsd:include schemaLocation='./state.xsd'/>

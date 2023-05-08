@@ -5,7 +5,6 @@
       <![CDATA[Defines an extruded polyline shape]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='polyline'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

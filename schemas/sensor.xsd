@@ -5,8 +5,6 @@
       <![CDATA[The sensor tag describes the type and properties of a sensor.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
-  <xsd:include schemaLocation='./plugin.xsd'/>
   <xsd:include schemaLocation='./altimeter.xsd'/>
   <xsd:include schemaLocation='./camera.xsd'/>
   <xsd:include schemaLocation='./contact.xsd'/>

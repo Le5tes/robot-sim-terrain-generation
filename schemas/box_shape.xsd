@@ -5,7 +5,6 @@
       <![CDATA[Box shape]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='box'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

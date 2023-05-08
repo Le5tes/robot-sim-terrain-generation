@@ -5,7 +5,6 @@
       <![CDATA[Mesh shape]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='mesh'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

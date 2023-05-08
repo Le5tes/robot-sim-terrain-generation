@@ -5,7 +5,6 @@
       <![CDATA[These elements are specific to logical camera sensors. A logical camera reports objects that fall within a frustum. Computation should be performed on the CPU.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='logical_camera'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

@@ -7,9 +7,6 @@
   </xsd:annotation>
   <xsd:include schemaLocation='./types.xsd'/>
   <xsd:include schemaLocation='./world.xsd'/>
-  <xsd:include schemaLocation='./model.xsd'/>
-  <xsd:include schemaLocation='./actor.xsd'/>
-  <xsd:include schemaLocation='./light.xsd'/>
   <xsd:element name='sdf'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

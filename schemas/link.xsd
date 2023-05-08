@@ -5,7 +5,6 @@
       <![CDATA[A physical link with inertia, collision, and visual properties. A link must be a child of a model, and any number of links may exist in a model.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:include schemaLocation='./inertial.xsd'/>
   <xsd:include schemaLocation='./collision.xsd'/>
   <xsd:include schemaLocation='./visual.xsd'/>

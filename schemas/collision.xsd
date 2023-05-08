@@ -5,7 +5,6 @@
       <![CDATA[The collision properties of a link. Note that this can be different from the visual properties of a link, for example, simpler collision models are often used to reduce computation time.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:include schemaLocation='./geometry.xsd'/>
   <xsd:include schemaLocation='./surface.xsd'/>
   <xsd:element name='collision'>

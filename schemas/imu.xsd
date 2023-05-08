@@ -5,7 +5,6 @@
       <![CDATA[These elements are specific to the IMU sensor.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='imu'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

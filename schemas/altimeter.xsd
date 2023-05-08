@@ -5,7 +5,6 @@
       <![CDATA[These elements are specific to an altimeter sensor.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='altimeter'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

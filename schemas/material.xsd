@@ -5,7 +5,6 @@
       <![CDATA[The material of the visual element.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='material'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

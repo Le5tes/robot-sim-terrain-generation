@@ -5,8 +5,6 @@
       <![CDATA[A joint connections two links with kinematic and dynamic properties.]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
-  <xsd:include schemaLocation='./sensor.xsd'/>
   <xsd:element name='joint'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>

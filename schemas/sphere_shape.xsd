@@ -5,7 +5,6 @@
       <![CDATA[Sphere shape]]>
     </xsd:documentation>
   </xsd:annotation>
-  <xsd:include schemaLocation='./types.xsd'/>
   <xsd:element name='sphere'>
     <xsd:complexType>
       <xsd:choice maxOccurs='unbounded'>
