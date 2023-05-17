@@ -4,3 +4,4 @@ log
 __pycache__
 plane/plane.sdf
 plane/plane.stl
+world.sdf
