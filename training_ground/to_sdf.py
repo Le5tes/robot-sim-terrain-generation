@@ -1,6 +1,8 @@
 import xmlschema
+import os 
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
-schema = xmlschema.XMLSchema('schemas/root.xsd')
+schema = xmlschema.XMLSchema(dir_path + '/schemas/root.xsd')
 
 def to_sdf(obj):
     sdf = schema.encode(obj)
