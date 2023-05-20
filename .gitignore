@@ -2,6 +2,7 @@
 log
 .cache
 __pycache__
+plane
 plane/plane.sdf
 plane/plane.stl
 world.sdf

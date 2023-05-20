@@ -1,12 +1,20 @@
-from to_sdf import build_sdf_file
+from training_ground.to_sdf import build_sdf_file
 from stl import mesh, Mode
+import os
 import numpy as np
 
 
-def build_terrain():
+def build_terrain(base_path):
+    path = base_path + '/plane'
 
-    stl_path = '/home/timwilliamson/dev/personal/Online-Msc/dissertation/terrain-generation/plane/plane.stl'
-    sdf_path = '/home/timwilliamson/dev/personal/Online-Msc/dissertation/terrain-generation/plane/plane.sdf'
+
+    isExist = os.path.exists(path)
+    if not isExist:
+        os.makedirs(path)
+
+    stl_path = path + '/plane.stl'
+    sdf_path = path + '/plane.sdf'
+
 
     size = 20
     jaggedness = 0.3
@@ -68,6 +76,26 @@ def build_terrain():
             }
         ]
     }
+
+    with open(path + '/plane/model.config', 'w') as f:
+        f.write('''
+<?xml version="1.0"?>
+
+<model>
+  <name>Generated Training Ground</name>
+  <version>1.0</version>
+  <sdf version="1.5">plane.sdf</sdf>
+
+  <author>
+    <name>Tim Williamson</name>
+    <email>tw964@bath.ac.uk</email>
+  </author>
+
+  <description>
+	A procedurally generated terrain
+  </description>
+</model>
+        ''')
 
     build_sdf_file(sdf, sdf_path)
 
