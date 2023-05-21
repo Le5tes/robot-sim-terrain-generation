@@ -7,7 +7,7 @@ def build_world(robot, base_path):
 
     sdf_path = base_path + '/world.sdf'
 
-    terrain_path = build_terrain()
+    terrain_path = build_terrain(base_path)
 
     sdf = {
         '@version': '1.5',
