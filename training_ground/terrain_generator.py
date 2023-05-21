@@ -77,7 +77,7 @@ def build_terrain(base_path):
         ]
     }
 
-    with open(path + '/plane/model.config', 'w') as f:
+    with open(path + '/model.config', 'w') as f:
         f.write('''
 <?xml version="1.0"?>
 
