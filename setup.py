@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='gazebo-training-ground-generator',
-    version='0.0.6',
+    version='0.0.7',
     author='Tim Williamson',
     author_email='timwilliamson1337@gmail.com',
     description='Create terrain for training robots - gazebo',
@@ -11,5 +11,5 @@ setuptools.setup(
         "training_ground.schemas": ["*.xsd"],
     },
     url='git@gitlab.com:ai-masters/final-project/terrain-generation',
-    install_requires=['stl', 'xmlschema']
+    install_requires=['numpy-stl', 'xmlschema']
 )
