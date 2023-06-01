@@ -14,8 +14,8 @@ def build_world(robot, base_path):
         'world': {
             '@name': 'rl_world',
             'include': [ 
-                terrain_path,
-                robot
+                {'uri': terrain_path},
+                {'uri':robot}
             ]
         }
     }
