@@ -12,13 +12,11 @@ def build_world(robot, base_path):
     sdf = {
         '@version': '1.5',
         'world': {
-            '@name': 'rl-world',
-            'include': [{
-                'uri': terrain_path
-            },
-            {
-                'uri': robot
-            }]
+            '@name': 'rl_world',
+            'include': [ 
+                terrain_path,
+                robot
+            ]
         }
     }
 
