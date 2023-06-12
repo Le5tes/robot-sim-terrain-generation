@@ -1,12 +1,13 @@
 from training_ground.to_sdf import build_sdf_file
-from training_ground.terrain_generators import jagged_terrain, boxes_terrain
+from training_ground.terrain_generators import jagged_terrain, boxes_terrain, stairs_terrain
 from stl import mesh, Mode
 import os
 import numpy as np
 
 terrain_fns = {
     'jagged': jagged_terrain,
-    'boxes': boxes_terrain
+    'boxes': boxes_terrain,
+    'stairs': stairs_terrain
 }
 
 def build_terrain(base_path, t_type, size, intensity):
@@ -19,6 +20,9 @@ def build_terrain(base_path, t_type, size, intensity):
 
     stl_path = path + '/plane.stl'
     sdf_path = path + '/plane.sdf'
+
+    if not t_type in terrain_fns:
+        raise ValueError("Terrain type argument (t_type) not recognised. Options are:" + str(list(terrain_fns)))
 
     plane_vertices, plane_faces = terrain_fns[t_type](size, intensity)
 
