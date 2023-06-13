@@ -2,12 +2,12 @@ from training_ground.to_sdf import build_sdf_file
 from training_ground.terrain_generator import build_terrain
 
 # TODO: pass base path rather than hardcoded to this machine
-def build_world(robot, base_path, t_type = 'jagged', size= 20, intensity = 0.3):
+def build_world(robot, base_path, t_type = 'jagged', size= 20, intensity = 0.3, robot_contact_base_name = 'anymal::base'):
 # '/home/timwilliamson/dev/personal/Online-Msc/dissertation/terrain-generation'
 
     sdf_path = base_path + '/world.sdf'
 
-    terrain_path = build_terrain(base_path, t_type, size, intensity)
+    terrain_path = build_terrain(base_path, t_type, size, intensity, robot_contact_base_name)
 
     sdf = {
         '@version': '1.5',
@@ -15,8 +15,12 @@ def build_world(robot, base_path, t_type = 'jagged', size= 20, intensity = 0.3):
             '@name': 'rl_world',
             'include': [ 
                 {'uri': terrain_path},
-                {'uri':robot}
-            ]
+                {'uri': robot}
+            ],
+            'plugin': {
+                '@filename': 'ignition-gazebo-contact-system',
+                '@name': 'ignition::gazebo::systems::Contact'
+            }
         }
     }
 

@@ -10,7 +10,7 @@ terrain_fns = {
     'stairs': stairs_terrain
 }
 
-def build_terrain(base_path, t_type, size, intensity):
+def build_terrain(base_path, t_type, size, intensity, robot_contact_base_name):
     path = base_path + '/plane'
 
 
@@ -51,7 +51,7 @@ def build_terrain(base_path, t_type, size, intensity):
                             }
                         }
                     },
-                        'collision': {
+                    'collision': {
                         '@name': 'plane_col',
                         'pose': '-10 -10 -1 0 0 0',
                         'geometry': {
@@ -60,7 +60,22 @@ def build_terrain(base_path, t_type, size, intensity):
                                 'scale': '1 1 1'
                             }
                         }
+                    },
+                    'sensor': {
+                        '@name': 'touch_sensor',
+                        '@type': 'contact',
+                        'contact': {
+                            'collision': 'plane_col'
+                        }
                     }
+                },
+                'plugin': {
+                    '@filename': 'ignition-gazebo-touchplugin-system',
+                    '@name': 'ignition::gazebo::systems::TouchPlugin',
+                    'target': robot_contact_base_name,
+                    'namespace': 'floor',
+                    'time': 0.001,
+                    'enabled': 'true'
                 }
             }
         ]
