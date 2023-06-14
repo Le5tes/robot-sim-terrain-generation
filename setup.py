@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='gazebo-training-ground-generator',
-    version='0.0.14',
+    version='0.0.15',
     author='Tim Williamson',
     author_email='timwilliamson1337@gmail.com',
     description='Create terrain for training robots - gazebo',

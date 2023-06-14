@@ -18,8 +18,16 @@ def build_world(robot, base_path, t_type = 'jagged', size= 20, intensity = 0.3, 
                 {'uri': robot}
             ],
             'plugin': {
-                '@filename': 'ignition-gazebo-contact-system',
+                '@filename': 'libignition-gazebo6-contact-system',
                 '@name': 'ignition::gazebo::systems::Contact'
+            },
+            'plugin': {
+                '@filename':'libignition-gazebo6-physics-system',
+                'name':'ignition::gazebo::systems::Physics'
+            },
+            'plugin': {
+                '@filename':'libignition-gazebo6-scene-broadcaster-system',
+                'name':'ignition::gazebo::systems::SceneBroadcaster'
             }
         }
     }
