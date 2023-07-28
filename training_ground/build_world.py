@@ -2,7 +2,7 @@ from training_ground.to_sdf import build_sdf_file
 from training_ground.terrain_generator import build_terrain
 
 # TODO: pass base path rather than hardcoded to this machine
-def build_world(robot, base_path, t_type = 'jagged', size= 20, intensity = 0.3, robot_contact_base_name = 'anymal::base'):
+def build_world(robot, base_path, t_type = 'jagged', size= 20, intensity = 0.3, robot_contact_base_name = 'anymal::base', rate = 1000):
 # '/home/timwilliamson/dev/personal/Online-Msc/dissertation/terrain-generation'
 
     sdf_path = base_path + '/world.sdf'
@@ -23,7 +23,9 @@ def build_world(robot, base_path, t_type = 'jagged', size= 20, intensity = 0.3, 
             },
             {
                 '@filename':'libignition-gazebo6-physics-system',
-                '@name':'ignition::gazebo::systems::Physics'
+                '@name':'ignition::gazebo::systems::Physics',
+                'max_step_size': 1.0 / rate,
+                'real_time_update_rate': rate
             },
             {
                 '@filename':'libignition-gazebo6-scene-broadcaster-system',
