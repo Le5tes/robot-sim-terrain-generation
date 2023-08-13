@@ -25,7 +25,8 @@ def build_world(robot, base_path, t_type = 'jagged', size= 20, intensity = 0.3, 
                 '@filename':'libignition-gazebo6-physics-system',
                 '@name':'ignition::gazebo::systems::Physics',
                 'max_step_size': 1.0 / rate,
-                'real_time_update_rate': rate
+                'real_time_update_rate': rate,
+                'real_time_factor': 1
             },
             {
                 '@filename':'libignition-gazebo6-scene-broadcaster-system',
