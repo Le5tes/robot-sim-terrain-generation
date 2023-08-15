@@ -21,7 +21,7 @@ def build_world(robot, base_path, t_type = 'jagged', size= 20, intensity = 0.3, 
                 '@name': '10ms',
                 '@type': 'ode',
                 'max_step_size': 1.0 / rate,
-                'real_time_factor': -1
+                'real_time_factor': -1.0
             },
             'plugin': [{
                 '@filename': 'libignition-gazebo6-contact-system',
