@@ -24,16 +24,16 @@ def build_world(robot, base_path, t_type = 'jagged', size= 20, intensity = 0.3, 
                 'real_time_factor': -1.0 if headless else 1.0
             },
             'plugin': [{
-                '@filename': 'libignition-gazebo6-contact-system',
-                '@name': 'ignition::gazebo::systems::Contact'
+                '@filename': 'libgz-sim7-contact-system',
+                '@name': 'gz::sim::systems::Contact'
             },
             {
-                '@filename':'libignition-gazebo6-physics-system',
-                '@name':'ignition::gazebo::systems::Physics',
+                '@filename':'libgz-sim7-physics-system',
+                '@name':'gz::sim::systems::Physics',
             },
             {
-                '@filename':'libignition-gazebo6-scene-broadcaster-system',
-                '@name':'ignition::gazebo::systems::SceneBroadcaster'
+                '@filename':'gz-sim7-scene-broadcaster-system',
+                '@name':'gz::sim::systems::SceneBroadcaster'
             }]
         }
     }
