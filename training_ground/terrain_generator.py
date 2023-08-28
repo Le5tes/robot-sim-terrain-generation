@@ -70,8 +70,8 @@ def build_terrain(base_path, t_type, size, intensity, robot_contact_base_name):
                     }
                 },
                 'plugin': {
-                    '@filename': 'gz-sim-touchplugin-system',
-                    '@name': 'gz::sim::systems::TouchPlugin',
+                    '@filename': 'ignition-gazebo-touchplugin-system',
+                    '@name': 'ignition::gazebo::systems::TouchPlugin',
                     'target': robot_contact_base_name,
                     'namespace': 'floor',
                     'time': 0.001,
