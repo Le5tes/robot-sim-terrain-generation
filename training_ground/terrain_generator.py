@@ -26,7 +26,7 @@ def create_voxels(stlmesh):
 			typedlist(uvec3(i, i+1, i+2)  for i in range(0, 3*trinum, 3)),
 		)
 
-    size = 0.01
+    size = 0.1
     voxels = set()
     hasher = PositionMap(size)   # ugly object creation, just to use one of its methods
     for face in mesh.faces:
