@@ -31,7 +31,7 @@ def create_voxels(stlmesh):
     hasher = PositionMap(size)   # ugly object creation, just to use one of its methods
     for face in mesh.faces:
         voxels.update(hasher.keysfor(mesh.facepoints(face)))
-    return voxels
+    return {(voxel[0], voxel[1],voxel[2] + 100) for voxel in voxels if voxel[2] >= -100 and voxel[2] < 100}
 
 def plane_and_voxels(t_type, size, intensity, start, goal):
     if not t_type in terrain_fns:

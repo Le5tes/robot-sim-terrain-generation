@@ -191,6 +191,6 @@ def path_terrain(size, intensity, start, goal):
         point_in_path = any([distance_from_line(np.array(a),np.array(b),np.array([x,y])) < width for a, b in paths]) or \
         (x-start.x) ** 2 + (y-start.y)**2 < 0.5 or (x-goal.x) ** 2 + (y-goal.y)**2 < 0.5
 
-        return z - 10 * (not point_in_path)
+        return z - 12 * (not point_in_path)
     
     return jagged_terrain(size, intensity/2, start, goal, scale = 0.2, permutation = path_permutation)
