@@ -13,7 +13,10 @@ def build_world(robot, base_path, t_type = 'jagged', size= 20, intensity = 0.3, 
             '@name': 'rl_world',
             'include': [ 
                 {'uri': terrain_path},
-                {'uri': robot}
+                {
+                    'uri': robot,
+                    'pose': f"{start.x - size/2} {start.y - size/2} 0 0 0 0"
+                }
             ],
             'physics': {
                 '@name': '10ms',
