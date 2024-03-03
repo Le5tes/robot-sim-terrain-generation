@@ -6,6 +6,7 @@ def noop(height, x,y):
 
 def jagged_terrain(size, intensity, start, goal, scale = 1, permutation = noop):
     size = int(size/scale)
+    size = size + 1
     jaggedness = intensity
 
     heightmap = np.random.normal(size = (size,size), scale = jaggedness * scale)
