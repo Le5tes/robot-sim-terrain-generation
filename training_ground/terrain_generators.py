@@ -1,8 +1,17 @@
 import random
 import numpy as np
+import math
+from training_ground.box import cube
+
+from training_ground.cylinder import create_cylinder
+from training_ground.shape_utils import combine_shapes, invert_shape_faces
 
 def noop(height, x,y):
     return height
+
+def with_bounding_box(terrain, size):
+    bounding_box = invert_shape_faces(cube(size))
+    return combine_shapes(terrain, bounding_box)
 
 def jagged_terrain(size, intensity, start, goal, scale = 1, permutation = noop):
     size = int(size/scale)
@@ -195,3 +204,31 @@ def path_terrain(size, intensity, start, goal):
         return z - 12 * (not point_in_path)
     
     return jagged_terrain(size, intensity/2, start, goal, scale = 0.2, permutation = path_permutation)
+
+
+def poles_terrain(size, intensity, start, goal):
+    ground = jagged_terrain(size, intensity/2, start, goal, scale = 0.5)
+
+    number_of_poles = random.randint(50 * intensity, 100 * intensity)
+
+    def pole_intersects_start_or_end(pole_start, pole_end):
+        return distance_from_line(pole_start[:2], pole_end[:2], start) < 1.5 or distance_from_line(pole_start[:2], pole_end[:2], goal) < 1.5
+
+    poles = []
+
+    for _ in range(number_of_poles):
+        intersects = True
+        pole_start = None
+        pole_end = None
+        while intersects:
+            def random_point():
+                return np.array([random.random() * size, random.random() * size, random.random() * 10 -3])
+            pole_start = random_point()
+            pole_end = random_point()
+            intersects = pole_intersects_start_or_end(pole_start, pole_end)
+        print(pole_start, pole_end, np.linalg.norm(pole_end - pole_start))
+        poles.append(create_cylinder(random.random() * 0.3, pole_start, pole_end, 6))
+
+    # poles = [create_cylinder(0.5,np.array([0,0,0]), np.array([1,1,1]), 6)]
+    # return poles[0]
+    return combine_shapes(ground, *poles)

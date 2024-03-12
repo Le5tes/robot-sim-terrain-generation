@@ -1,5 +1,5 @@
 from training_ground.to_sdf import build_sdf_file
-from training_ground.terrain_generators import jagged_terrain, boxes_terrain, path_terrain, pillars_terrain, potholes_terrain, stairs_terrain
+from training_ground.terrain_generators import jagged_terrain, boxes_terrain, path_terrain, pillars_terrain, poles_terrain, potholes_terrain, stairs_terrain, with_bounding_box
 from stl import mesh, Mode
 from madcad.mesh import Mesh, numpy_to_typedlist
 from madcad.mathutils import typedlist, vec3, uvec3
@@ -14,7 +14,8 @@ terrain_fns = {
     'stairs': stairs_terrain,
     'holes': potholes_terrain,
     'pillars': pillars_terrain,
-    'path': path_terrain
+    'path': path_terrain,
+    'poles': poles_terrain
 }
 
 Point = namedtuple('Point', ['x','y'])
@@ -33,11 +34,8 @@ def create_voxels(stlmesh):
         voxels.update(hasher.keysfor(mesh.facepoints(face)))
     return {(voxel[0], voxel[1],voxel[2] + 100) for voxel in voxels if voxel[2] >= -100 and voxel[2] < 100}
 
-def plane_and_voxels(t_type, size, intensity, start, goal):
-    if not t_type in terrain_fns:
-        raise ValueError("Terrain type argument (t_type) not recognised. Options are:" + str(list(terrain_fns)))
-    
-    plane_vertices, plane_faces = terrain_fns[t_type](size, intensity, start, goal)
+def plane_and_voxels(shape):    
+    plane_vertices, plane_faces = shape
 
     plane = mesh.Mesh(np.zeros(plane_faces.shape[0], dtype=mesh.Mesh.dtype))
     for i, f in enumerate(plane_faces):
@@ -48,7 +46,16 @@ def plane_and_voxels(t_type, size, intensity, start, goal):
 
     return plane, voxels
 
-def build_terrain(base_path, t_type, size, intensity, robot_contact_base_name, start, goal):
+def get_shape(t_type, size, intensity, start, goal, bound = False):
+    if not t_type in terrain_fns:
+        raise ValueError("Terrain type argument (t_type) not recognised. Options are:" + str(list(terrain_fns)))
+
+    shape = terrain_fns[t_type](size, intensity, start, goal)
+    if bound:
+        shape = with_bounding_box(shape, size)
+    return shape
+
+def build_terrain(base_path, t_type, size, intensity, robot_contact_base_name, start, goal, bound = False):
     path = base_path + '/plane'
 
     isExist = os.path.exists(path)
@@ -58,7 +65,10 @@ def build_terrain(base_path, t_type, size, intensity, robot_contact_base_name, s
     stl_path = path + '/plane.stl'
     sdf_path = path + '/plane.sdf'
 
-    plane, voxels = plane_and_voxels(t_type, size, intensity, start, goal)
+
+    shape = get_shape(t_type, size, intensity, start, goal, bound)
+
+    plane, voxels = plane_and_voxels(shape)
 
     plane.save(stl_path)
 

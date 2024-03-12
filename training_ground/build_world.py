@@ -2,10 +2,10 @@ from training_ground.to_sdf import build_sdf_file
 from training_ground.terrain_generator import build_terrain, Point
 
 
-def build_world(robot, base_path, t_type = 'jagged', size= 20, intensity = 0.3, start = Point(10,3), goal = Point(10,17), robot_contact_base_name = 'anymal::base', rate = 1000, headless = False):
+def build_world(robot, base_path, t_type = 'jagged', size= 20, intensity = 0.3, start = Point(10,3), goal = Point(10,17), robot_contact_base_name = 'anymal::base', rate = 1000, headless = False, bound = False):
     sdf_path = base_path + '/world.sdf'
 
-    terrain_path, voxels = build_terrain(base_path, t_type, size, intensity, robot_contact_base_name, start, goal)
+    terrain_path, voxels = build_terrain(base_path, t_type, size, intensity, robot_contact_base_name, start, goal, bound)
 
     sdf = {
         '@version': '1.5',
