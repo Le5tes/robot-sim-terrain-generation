@@ -117,7 +117,7 @@ def build_terrain(base_path, t_type, size, intensity, robot_contact_base_name, s
                     '@name':'start',
                     'visual': {
                         '@name': 'start_visual',
-                        'pose': f"{start.x - size/2} {start.y - size/2} -3 0 0 0",
+                        'pose': f"{start.x} {start.y} -3 0 0 0",
                         'geometry': {
                             'cylinder': {
                                 'radius': 0.5,
@@ -136,7 +136,7 @@ def build_terrain(base_path, t_type, size, intensity, robot_contact_base_name, s
                     '@name':'goal',
                     'visual': {
                         '@name': 'goal_visual',
-                        'pose': f"{goal.x - 10} {goal.y - 10} -3 0 0 0",
+                        'pose': f"{goal.x} {goal.y} -3 0 0 0",
                         'geometry': {
                             'cylinder': {
                                 'radius': 0.5,
