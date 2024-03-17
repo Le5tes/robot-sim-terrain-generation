@@ -21,7 +21,7 @@ def build_world(robot, base_path, t_type = 'jagged', size= 20, intensity = 0.3, 
             'physics': {
                 '@name': '10ms',
                 '@default': True,
-                '@type': 'bullet',
+                '@type': 'dart',
                 'max_step_size': 1.0 / rate,
                 'real_time_factor': -1.0 if headless else 1.0
             },
