@@ -20,6 +20,9 @@ terrain_fns = {
 
 Point = namedtuple('Point', ['x','y'])
 
+def offset(p, amount):
+    return Point(p.x + amount, p.y + amount)
+
 def create_voxels(stlmesh):
     trinum = stlmesh.points.shape[0]
     mesh = Mesh(
@@ -66,7 +69,7 @@ def build_terrain(base_path, t_type, size, intensity, robot_contact_base_name, s
     sdf_path = path + '/plane.sdf'
 
 
-    shape = get_shape(t_type, size, intensity, start, goal, bound)
+    shape = get_shape(t_type, size, intensity, offset(start, size/2), offset(goal, size/2), bound)
 
     plane, voxels = plane_and_voxels(shape)
 

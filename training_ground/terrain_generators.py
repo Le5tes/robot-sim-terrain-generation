@@ -2,8 +2,9 @@ import random
 import numpy as np
 import math
 from training_ground.box import cube
-
+import training_ground.terrain_generators_heightmaps as hm
 from training_ground.cylinder import create_cylinder
+from training_ground.geom_utils import distance_from_line
 from training_ground.shape_utils import combine_shapes, invert_shape_faces
 
 def noop(height, x,y):
@@ -13,30 +14,30 @@ def with_bounding_box(terrain, size):
     bounding_box = invert_shape_faces(cube(size))
     return combine_shapes(terrain, bounding_box)
 
-def jagged_terrain(size, intensity, start, goal, scale = 1, permutation = noop):
-    size = int(size/scale)
-    size = size + 1
-    jaggedness = intensity
-
-    heightmap = np.random.normal(size = (size,size), scale = jaggedness * scale)
-
+def from_heightmap(heightmap, size, scale):
+    n = int(size/scale) + 1
     plane_vertices = np.array([
-        [x * scale,y * scale, permutation(heightmap[x,y], x * scale, y * scale)]
-        for x in range(size)
-        for y in range(size)
+        [x * scale,y * scale, heightmap[x,y]]
+        for x in range(n)
+        for y in range(n)
     ])
 
     plane_faces = np.array([
-        [x, x+size, x+1] 
-        for x in range(size * (size - 1))
-        if x % size != size - 1
+        [x, x+n, x+1] 
+        for x in range(n * (n - 1))
+        if x % n != n - 1
     ] + [
-        [x+1, x+size, x+size+1] 
-        for x in range(size * (size - 1))
-        if x % size != size - 1
+        [x+1, x+n, x+n+1] 
+        for x in range(n * (n - 1))
+        if x % n != n - 1
     ])
 
     return plane_vertices, plane_faces
+
+def jagged_terrain(size, intensity, start, goal, scale = 1, permutation = noop):
+    heightmap = hm.jagged_terrain(size, intensity, start, goal, scale)
+
+    return from_heightmap(heightmap, size, scale)
 
 def boxes_terrain(size, intensity, start, goal):
     heightmap = np.random.normal(size = (size,size), scale = intensity)
@@ -134,77 +135,20 @@ def stairs_terrain(size, intensity, start, goal):
 
     return plain_vertices, plain_faces
 
-def potholes_terrain(size, intensity, start, goal):
-    holes = set(item for tup in (
-        ((x,y), (x-1, y), (x+1, y), (x, y-1), (x, y+1))
-          for x in range(size) 
-          for y in range(size) 
-          if random.random() < 0.1 * intensity 
-    ) for item in tup)
+def potholes_terrain(size, intensity, start, goal, scale = 1):
+    heightmap = hm.potholes_terrain(size, intensity, start, goal, scale)
 
-    startSet = set(((start.x, start.y), (start.x+1, start.y), (start.x, start.y+1), (start.x-1, start.y), (start.x, start.y-1)))
+    return from_heightmap(heightmap, size, scale)
 
-    goalSet = set(((goal.x, goal.y), (goal.x+1, goal.y), (goal.x, goal.y+1), (goal.x-1, goal.y), (goal.x, goal.y-1)))
+def pillars_terrain(size, intensity, start, goal, scale = 1):
+    heightmap = hm.pillars_terrain(size, intensity, start, goal, scale)
 
-    protected = startSet | goalSet
+    return from_heightmap(heightmap, size, scale)
 
+def path_terrain(size, intensity, start, goal, scale = 0.2):
+    heightmap = hm.path_terrain(size, intensity, start, goal, scale)
 
-    def holes_permutation(z, x, y):
-        return z - (4 * ((x,y) in holes and (x,y) not in protected))
-
-    return jagged_terrain(size, intensity/2, start, goal, permutation = holes_permutation)
-
-def pillars_terrain(size, intensity, start, goal):
-
-    pillars = set(
-        (x,y)
-          for x in range(size) 
-          for y in range(size) 
-          if random.random() < 0.1 * intensity 
-    )
-
-    startSet = set(((start.x, start.y), (start.x+1, start.y), (start.x, start.y+1), (start.x-1, start.y), (start.x, start.y-1)))
-
-    goalSet = set(((goal.x, goal.y), (goal.x+1, goal.y), (goal.x, goal.y+1), (goal.x-1, goal.y), (goal.x, goal.y-1)))
-
-    protected = startSet | goalSet
-
-    def pillars_permutation(z,x,y):
-        return z + (10 * ((x,y) in pillars and (x,y) not in protected))
-
-    return jagged_terrain(size, intensity/2, start, goal, permutation = pillars_permutation)
-
-
-def distance_from_line(a,b,p):
-    line_length = np.linalg.norm(b-a)
-    unit_vector = (b-a)/line_length
-
-    if np.dot(p, unit_vector) < np.dot(a, unit_vector):
-        return np.linalg.norm(a-p)
-    elif np.dot(p, unit_vector) > np.dot(b, unit_vector):
-        return np.linalg.norm(b-p)
-    else:
-        projection_to_ab = (a-p) + np.dot(p - a, unit_vector) * unit_vector
-        return np.linalg.norm(projection_to_ab)
-
-def path_terrain(size, intensity, start, goal):
-    path = [start]
-    for _ in range(3):
-        if random.random() < intensity * 0.8:
-            path.append((random.random() * 20, random.random() * 20))
-    path.append(goal)
-
-    width = 1.1 - intensity
-
-    def path_permutation(z,x,y):
-        paths = zip(path[:-1], path[1:])
-        point_in_path = any([distance_from_line(np.array(a),np.array(b),np.array([x,y])) < width for a, b in paths]) or \
-        (x-start.x) ** 2 + (y-start.y)**2 < 0.5 or (x-goal.x) ** 2 + (y-goal.y)**2 < 0.5
-
-        return z - 12 * (not point_in_path)
-    
-    return jagged_terrain(size, intensity/2, start, goal, scale = 0.2, permutation = path_permutation)
-
+    return from_heightmap(heightmap, size, scale)
 
 def poles_terrain(size, intensity, start, goal):
     ground = jagged_terrain(size, intensity/2, start, goal, scale = 0.5)
