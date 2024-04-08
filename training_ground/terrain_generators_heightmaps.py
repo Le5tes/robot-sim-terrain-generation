@@ -10,15 +10,12 @@ def noop(x,y):
 def jagged_terrain(size, intensity, start, goal, scale = 1, permutation = noop):
     size = int(size/scale) + 1
     jaggedness = intensity
-    print(size)
 
     permutation_field = np.array([
         [permutation(x * scale, y * scale) for y in range(size)] for x in range(size)
     ])
-    print(permutation_field.shape)
 
     heightmap = np.random.normal(size = (size,size), scale = jaggedness * scale) + permutation_field
-    print(heightmap.shape)
     return heightmap
 
 def potholes_terrain(size, intensity, start, goal, scale = 1):
