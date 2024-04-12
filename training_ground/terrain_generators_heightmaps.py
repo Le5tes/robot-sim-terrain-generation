@@ -45,11 +45,11 @@ def potholes_terrain(size, intensity, start, goal, scale = 1):
 
 
     def holes_permutation(x, y):
-        return - (4 * ((x,y) in holes and not is_protected(x,y, start, goal))) + is_protected(x,y, start, goal)
+        return - (4 * ((x,y) in holes and not is_protected(x,y, start, goal)))
 
     return jagged_terrain(size, intensity/2, start, goal, permutation = holes_permutation)
 
-protected_radius = 1.3
+protected_radius = 1.5
 def is_protected(x,y,start,goal):
     return np.linalg.norm(np.array((start.x - x, start.y-y))) < protected_radius or np.linalg.norm(np.array((goal.x - x, goal.y-y))) < protected_radius 
 
@@ -63,7 +63,7 @@ def pillars_terrain(size, intensity, start, goal, scale = 1 ):
     )
 
     def pillars_permutation(x,y):
-        return 10 * ((x,y) in pillars and not is_protected(x,y, start, goal)) + is_protected(x,y, start, goal)
+        return 10 * ((x,y) in pillars and not is_protected(x,y, start, goal))
 
     return jagged_terrain(size, intensity/2, start, goal, permutation = pillars_permutation)
 
