@@ -3,7 +3,7 @@ import numpy as np
 import math
 
 from training_ground.geom_utils import distance_from_line
-from training_ground.terrain_generator import Point
+from training_ground.types import Point
 
 def noop(x,y):
     return 0

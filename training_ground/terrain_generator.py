@@ -8,6 +8,8 @@ from collections import namedtuple
 import os
 import numpy as np
 
+from training_ground.types import Point
+
 terrain_fns = {
     'jagged': jagged_terrain,
     'boxes': boxes_terrain,
@@ -17,8 +19,6 @@ terrain_fns = {
     'path': path_terrain,
     'poles': poles_terrain
 }
-
-Point = namedtuple('Point', ['x','y'])
 
 def offset(p, amount):
     return Point(p.x + amount, p.y + amount)
