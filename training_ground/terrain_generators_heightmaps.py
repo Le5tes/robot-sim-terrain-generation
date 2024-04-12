@@ -46,15 +46,15 @@ def potholes_terrain(size, intensity, start, goal, scale = 1):
 
 
     def holes_permutation(x, y):
-        return - (4 * ((x,y) in holes and (x,y) not in protected))
+        return - (4 * ((x,y) in holes and (x,y) not in protected)) + (x,y) in protected
 
     return jagged_terrain(size, intensity/2, start, goal, permutation = holes_permutation)
 
 def get_protected(start, goal):
-    start_x = round(start.x)
-    start_y = round(start.y)
-    goal_x = round(goal.x)
-    goal_y = round(goal.y)
+    start_x = int(round(start.x))
+    start_y = int(round(start.y))
+    goal_x = int(round(goal.x))
+    goal_y = int(round(goal.y))
 
     startSet = set(((start_x, start_y), (start_x+1, start_y), (start_x, start_y+1), (start_x-1, start_y), (start_x, start_y-1)))
 
@@ -74,7 +74,7 @@ def pillars_terrain(size, intensity, start, goal, scale = 1 ):
     protected = get_protected(start, goal)
 
     def pillars_permutation(x,y):
-        return 10 * ((x,y) in pillars and (x,y) not in protected)
+        return 10 * ((x,y) in pillars and (x,y) not in protected) + (x,y) in protected
 
     return jagged_terrain(size, intensity/2, start, goal, permutation = pillars_permutation)
 
