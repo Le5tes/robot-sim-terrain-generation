@@ -42,25 +42,16 @@ def potholes_terrain(size, intensity, start, goal, scale = 1):
           if random.random() < 0.1 * intensity 
     ) for item in tup)
 
-    protected = get_protected(start, goal)
 
 
     def holes_permutation(x, y):
-        return - (4 * ((x,y) in holes and (x,y) not in protected)) + ((x,y) in protected)
+        return - (4 * ((x,y) in holes and not is_protected(x,y, start, goal))) + is_protected(x,y, start, goal)
 
     return jagged_terrain(size, intensity/2, start, goal, permutation = holes_permutation)
 
-def get_protected(start, goal):
-    start_x = int(round(start.x))
-    start_y = int(round(start.y))
-    goal_x = int(round(goal.x))
-    goal_y = int(round(goal.y))
-
-    startSet = set(((start_x, start_y), (start_x+1, start_y), (start_x, start_y+1), (start_x-1, start_y), (start_x, start_y-1)))
-
-    goalSet = set(((goal_x, goal_y), (goal_x+1, goal_y), (goal_x, goal_y+1), (goal_x-1, goal_y), (goal_x, goal_y-1)))
-
-    return startSet | goalSet
+protected_radius = 1.3
+def is_protected(x,y,start,goal):
+    return np.linalg.norm(np.array((start.x - x, start.y-y))) < protected_radius or np.linalg.norm(np.array((goal.x - x, goal.y-y)))
 
 def pillars_terrain(size, intensity, start, goal, scale = 1 ):
     n = int(size / scale) + 1
@@ -71,10 +62,8 @@ def pillars_terrain(size, intensity, start, goal, scale = 1 ):
           if random.random() < 0.1 * intensity 
     )
 
-    protected = get_protected(start, goal)
-
     def pillars_permutation(x,y):
-        return 10 * ((x,y) in pillars and (x,y) not in protected) + ((x,y) in protected)
+        return 10 * ((x,y) in pillars and not is_protected(x,y, start, goal)) + is_protected(x,y, start, goal)
 
     return jagged_terrain(size, intensity/2, start, goal, permutation = pillars_permutation)
 
