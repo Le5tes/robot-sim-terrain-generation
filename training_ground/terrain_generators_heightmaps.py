@@ -3,9 +3,24 @@ import numpy as np
 import math
 
 from training_ground.geom_utils import distance_from_line
+from training_ground.terrain_generator import Point
 
 def noop(x,y):
     return 0
+
+def choose_terrain(size, intensity, start, goal, scale = 1):
+    try:
+        if not type(start) is Point:
+            start = Point(*start)
+        
+        if not type(goal) is Point:
+            goal = Point(*goal)
+    except:
+        raise ValueError("start and goal should either be of type Point (from this module) or iterables of length 2")
+        
+    terrain_choice = jagged_terrain if intensity < 0.15 else random.choice((jagged_terrain,potholes_terrain,pillars_terrain,path_terrain))
+
+    return terrain_choice(size,intensity,start,goal, scale)
 
 def jagged_terrain(size, intensity, start, goal, scale = 1, permutation = noop):
     size = int(size/scale) + 1
