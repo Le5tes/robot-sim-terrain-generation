@@ -42,17 +42,25 @@ def potholes_terrain(size, intensity, start, goal, scale = 1):
           if random.random() < 0.1 * intensity 
     ) for item in tup)
 
-    startSet = set(((start.x, start.y), (start.x+1, start.y), (start.x, start.y+1), (start.x-1, start.y), (start.x, start.y-1)))
-
-    goalSet = set(((goal.x, goal.y), (goal.x+1, goal.y), (goal.x, goal.y+1), (goal.x-1, goal.y), (goal.x, goal.y-1)))
-
-    protected = startSet | goalSet
+    protected = get_protected(start, goal)
 
 
     def holes_permutation(x, y):
-        return - (4 * ((x,y) in holes and (x,y) not in protected)) + 1 * ((x,y) in protected)
+        return - (4 * ((x,y) in holes and (x,y) not in protected))
 
     return jagged_terrain(size, intensity/2, start, goal, permutation = holes_permutation)
+
+def get_protected(start, goal):
+    start_x = round(start.x)
+    start_y = round(start.y)
+    goal_x = round(goal.x)
+    goal_y = round(goal.y)
+
+    startSet = set(((start_x, start_y), (start_x+1, start_y), (start_x, start_y+1), (start_x-1, start_y), (start_x, start_y-1)))
+
+    goalSet = set(((goal_x, goal_y), (goal_x+1, goal_y), (goal_x, goal_y+1), (goal_x-1, goal_y), (goal_x, goal_y-1)))
+
+    return startSet | goalSet
 
 def pillars_terrain(size, intensity, start, goal, scale = 1 ):
     n = int(size / scale) + 1
@@ -63,14 +71,10 @@ def pillars_terrain(size, intensity, start, goal, scale = 1 ):
           if random.random() < 0.1 * intensity 
     )
 
-    startSet = set(((start.x, start.y), (start.x+1, start.y), (start.x, start.y+1), (start.x-1, start.y), (start.x, start.y-1)))
-
-    goalSet = set(((goal.x, goal.y), (goal.x+1, goal.y), (goal.x, goal.y+1), (goal.x-1, goal.y), (goal.x, goal.y-1)))
-
-    protected = startSet | goalSet
+    protected = get_protected(start, goal)
 
     def pillars_permutation(x,y):
-        return 10 * ((x,y) in pillars and (x,y) not in protected) + 1 * ((x,y) in protected)
+        return 10 * ((x,y) in pillars and (x,y) not in protected)
 
     return jagged_terrain(size, intensity/2, start, goal, permutation = pillars_permutation)
 
