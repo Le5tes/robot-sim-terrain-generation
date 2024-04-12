@@ -82,7 +82,7 @@ def path_terrain(size, intensity, start, goal, scale = 1):
             path.append((random.random() * 20, random.random() * 20))
     path.append(goal)
 
-    width = 1.1 - intensity
+    width = 2.2 - intensity
 
     def path_permutation(x,y):
         paths = zip(path[:-1], path[1:])
