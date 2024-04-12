@@ -51,7 +51,7 @@ def potholes_terrain(size, intensity, start, goal, scale = 1):
 
 protected_radius = 1.3
 def is_protected(x,y,start,goal):
-    return np.linalg.norm(np.array((start.x - x, start.y-y))) < protected_radius or np.linalg.norm(np.array((goal.x - x, goal.y-y)))
+    return np.linalg.norm(np.array((start.x - x, start.y-y))) < protected_radius or np.linalg.norm(np.array((goal.x - x, goal.y-y))) < protected_radius 
 
 def pillars_terrain(size, intensity, start, goal, scale = 1 ):
     n = int(size / scale) + 1
