@@ -68,7 +68,6 @@ def pillars_terrain(size, intensity, start, goal, scale = 1 ):
     return jagged_terrain(size, intensity/2, start, goal, permutation = pillars_permutation)
 
 def path_terrain(size, intensity, start, goal, scale = 1):
-    print(size)
     path = [start]
     for _ in range(3):
         if random.random() < intensity * 0.8:
