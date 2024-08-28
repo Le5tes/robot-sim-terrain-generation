@@ -8,7 +8,7 @@ from training_ground.types import Point
 def noop(x,y):
     return 0
 
-def choose_terrain(size, intensity, start, goal, scale = 1):
+def choose_terrain(size, intensity, start, goal, scale = 1, larger_feature_difficulty_scaling = 1):
     try:
         if not type(start) is Point:
             start = Point(*start)
@@ -18,11 +18,11 @@ def choose_terrain(size, intensity, start, goal, scale = 1):
     except:
         raise ValueError("start and goal should either be of type Point (from this module) or iterables of length 2")
         
-    terrain_choice = jagged_terrain if intensity < 0.15 else random.choice((jagged_terrain,potholes_terrain,pillars_terrain,path_terrain))
+    terrain_choice = jagged_terrain if intensity < (0.15 * larger_feature_difficulty_scaling) else random.choice((jagged_terrain,potholes_terrain,pillars_terrain,path_terrain))
 
-    return terrain_choice(size,intensity,start,goal, scale)
+    return terrain_choice(size,intensity,start,goal, scale, larger_feature_difficulty_scaling = larger_feature_difficulty_scaling)
 
-def jagged_terrain(size, intensity, start, goal, scale = 1, permutation = noop):
+def jagged_terrain(size, intensity, start, goal, scale = 1, permutation = noop, larger_feature_difficulty_scaling = 1):
     size = int(size/scale) + 1
     jaggedness = intensity
 
@@ -33,13 +33,13 @@ def jagged_terrain(size, intensity, start, goal, scale = 1, permutation = noop):
     heightmap = np.random.normal(size = (size,size), scale = jaggedness * scale) + permutation_field
     return heightmap
 
-def potholes_terrain(size, intensity, start, goal, scale = 1):
+def potholes_terrain(size, intensity, start, goal, scale = 1, larger_feature_difficulty_scaling = 1):
     n = int(size / scale) + 1
     holes = set(item for tup in (
         ((x,y), (x-1, y), (x+1, y), (x, y-1), (x, y+1))
           for x in range(n) 
           for y in range(n) 
-          if random.random() < 0.1 * intensity 
+          if random.random() < 0.1 * intensity * larger_feature_difficulty_scaling
     ) for item in tup)
 
 
@@ -53,13 +53,13 @@ protected_radius = 2.5
 def is_protected(x,y,start,goal):
     return np.linalg.norm(np.array((start.x - x, start.y-y))) < protected_radius or np.linalg.norm(np.array((goal.x - x, goal.y-y))) < protected_radius 
 
-def pillars_terrain(size, intensity, start, goal, scale = 1 ):
+def pillars_terrain(size, intensity, start, goal, scale = 1, larger_feature_difficulty_scaling = 1 ):
     n = int(size / scale) + 1
     pillars = set(
         (x,y)
           for x in range(n) 
           for y in range(n) 
-          if random.random() < 0.1 * intensity 
+          if random.random() < 0.1 * intensity * larger_feature_difficulty_scaling
     )
 
     def pillars_permutation(x,y):
@@ -67,14 +67,14 @@ def pillars_terrain(size, intensity, start, goal, scale = 1 ):
 
     return jagged_terrain(size, intensity/2, start, goal, permutation = pillars_permutation)
 
-def path_terrain(size, intensity, start, goal, scale = 1):
+def path_terrain(size, intensity, start, goal, scale = 1, larger_feature_difficulty_scaling = 1):
     path = [start]
     for _ in range(3):
-        if random.random() < intensity * 0.8:
+        if random.random() < intensity * 0.8 * larger_feature_difficulty_scaling:
             path.append((random.random() * 20, random.random() * 20))
     path.append(goal)
 
-    width = 2.2 - intensity
+    width = 2.2 - (intensity * larger_feature_difficulty_scaling)
 
     def path_permutation(x,y):
         paths = zip(path[:-1], path[1:])
